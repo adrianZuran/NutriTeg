@@ -1,26 +1,59 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-nutriteg-green-dark: #55883B;
+  --color-nutriteg-green-light: #C1E899;
+  --color-nutriteg-green-darker: #3d632a;
+  --color-nutriteg-green-lighter: #e1f4cd;
+  --color-warteg-white: #fafafa;
+  --color-warteg-bg: #fdfdfd;
+  --color-warteg-dark-bg: #121212;
+  --color-warteg-card: #ffffff;
+  --color-warteg-dark-card: #1e1e1e;
+  --color-warteg-text: #171717;
+  --color-warteg-dark-text: #ededed;
+  
+  --font-sans: var(--font-jakarta);
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+:root {
+  --background: var(--color-warteg-bg);
+  --foreground: var(--color-warteg-text);
+  --card: var(--color-warteg-card);
+  --card-foreground: var(--color-warteg-text);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: var(--color-warteg-dark-bg);
+    --foreground: var(--color-warteg-dark-text);
+    --card: var(--color-warteg-dark-card);
+    --card-foreground: var(--color-warteg-dark-text);
   }
 }
 
 body {
-  background: var(--background);
+  background-color: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* Glassmorphism utility */
+.glass-effect {
+  background: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+}
+
+@media (prefers-color-scheme: dark) {
+  .glass-effect {
+    background: rgba(30, 30, 30, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+  }
 }
