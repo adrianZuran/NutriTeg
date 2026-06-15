@@ -14,6 +14,7 @@ function cn(...inputs: ClassValue[]) {
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const [showDevModal, setShowDevModal] = useState(false);
   const pathname = usePathname();
 
   useEffect(() => {
@@ -28,10 +29,9 @@ export default function Navbar() {
 
   const navLinks = [
     { name: "Beranda", path: "/" },
-    { name: "Menu", path: "/menu" },
-    { name: "Kalkulator", path: "/kalkulator" },
+    { name: "Menu", path: "/#menu" },
+    { name: "Kalkulator", path: "/#kalkulator" },
     { name: "Tentang", path: "/tentang" },
-    { name: "Admin", path: "/admin" },
   ];
 
   return (
@@ -42,12 +42,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 transition-all duration-300">
           <Link href="/" className="flex items-center gap-2 group">
-            <div className="bg-nutriteg-green-dark p-2 rounded-xl group-hover:bg-nutriteg-green-darker transition-colors">
-              <UtensilsCrossed className="text-white w-6 h-6" />
-            </div>
-            <span className="font-bold text-xl text-warteg-text dark:text-warteg-dark-text tracking-tight">
-              NutriTeg
-            </span>
+            <img src="/uploads/logo-removebg-preview.png" alt="NutriTeg Logo" className="w-25 auto object-contain transition-transform group-hover:scale-105" />
           </Link>
 
           {/* Desktop Menu */}
@@ -57,28 +52,28 @@ export default function Navbar() {
                 key={link.name}
                 href={link.path}
                 className={cn(
-                  "font-medium transition-colors hover:text-nutriteg-green-dark",
+                  "font-medium transition-colors hover:text-nutriteg-green-darker",
                   pathname === link.path
-                    ? "text-nutriteg-green-dark"
-                    : "text-warteg-text/80 dark:text-warteg-dark-text/80"
+                    ? "text-nutriteg-green-darker font-semibold"
+                    : "text-nutriteg-green-dark"
                 )}
               >
                 {link.name}
               </Link>
             ))}
-            <Link
-              href="/menu"
+            <button
+              onClick={() => setShowDevModal(true)}
               className="bg-nutriteg-green-dark text-white px-5 py-2 rounded-full font-semibold hover:bg-nutriteg-green-darker transition-colors"
             >
               Order In
-            </Link>
+            </button>
           </div>
 
           {/* Mobile Menu Button */}
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-warteg-text dark:text-warteg-dark-text hover:text-nutriteg-green-dark transition-colors"
+              className="text-nutriteg-green-dark hover:text-nutriteg-green-darker transition-colors"
             >
               {isOpen ? <X className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
             </button>
@@ -98,13 +93,35 @@ export default function Navbar() {
                 className={cn(
                   "block px-3 py-2 rounded-md text-base font-medium transition-colors",
                   pathname === link.path
-                    ? "bg-nutriteg-green-dark/10 text-nutriteg-green-dark"
-                    : "text-warteg-text/80 dark:text-warteg-dark-text/80 hover:bg-nutriteg-green-dark/5 hover:text-nutriteg-green-dark"
+                    ? "bg-nutriteg-green-dark/10 text-nutriteg-green-darker font-semibold"
+                    : "text-nutriteg-green-dark hover:bg-nutriteg-green-dark/5 hover:text-nutriteg-green-darker"
                 )}
               >
                 {link.name}
               </Link>
             ))}
+          </div>
+        </div>
+      )}
+
+      {/* Dev Modal inside Navbar */}
+      {showDevModal && (
+        <div className="fixed inset-0 z-[110] flex items-center justify-center p-4">
+          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={() => setShowDevModal(false)}></div>
+          <div className="bg-white rounded-3xl shadow-2xl w-full max-w-sm relative z-10 p-8 text-center animate-in fade-in zoom-in duration-200">
+            <div className="w-16 h-16 bg-yellow-100 text-yellow-600 rounded-full flex items-center justify-center mx-auto mb-4">
+              <UtensilsCrossed className="w-8 h-8" />
+            </div>
+            <h3 className="text-2xl font-black text-gray-900 mb-2">Segera Hadir!</h3>
+            <p className="text-gray-600 mb-6 leading-relaxed">
+              Mohon maaf, fitur pemesanan masih dalam masa pengembangan. Silakan coba lagi nanti!
+            </p>
+            <button 
+              onClick={() => setShowDevModal(false)}
+              className="w-full bg-nutriteg-green-dark text-white px-6 py-3 rounded-xl font-bold hover:bg-nutriteg-green-darker transition-colors"
+            >
+              Tutup
+            </button>
           </div>
         </div>
       )}
