@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { UtensilsCrossed, Menu as MenuIcon, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { clsx, type ClassValue } from "clsx";
 import { twMerge } from "tailwind-merge";
@@ -13,19 +13,34 @@ function cn(...inputs: ClassValue[]) {
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 10);
+    };
+    window.addEventListener("scroll", handleScroll);
+    // Initial check
+    handleScroll();
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   const navLinks = [
     { name: "Beranda", path: "/" },
     { name: "Menu", path: "/menu" },
     { name: "Kalkulator", path: "/kalkulator" },
     { name: "Tentang", path: "/tentang" },
+    { name: "Admin", path: "/admin" },
   ];
 
   return (
-    <nav className="fixed w-full z-50 glass-effect">
+    <nav className={cn(
+      "fixed w-full z-50 transition-all duration-300",
+      isScrolled ? "bg-[#C1E899]/85 backdrop-blur-md shadow-sm py-0" : "bg-white py-1"
+    )}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-16">
+        <div className="flex justify-between items-center h-16 transition-all duration-300">
           <Link href="/" className="flex items-center gap-2 group">
             <div className="bg-nutriteg-green-dark p-2 rounded-xl group-hover:bg-nutriteg-green-darker transition-colors">
               <UtensilsCrossed className="text-white w-6 h-6" />

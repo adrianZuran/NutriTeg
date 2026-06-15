@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ShoppingBag, MapPin, Plus, Trash2 } from "lucide-react";
@@ -31,6 +31,17 @@ export default function Home() {
   const [calculatorItems, setCalculatorItems] = useState([
     { menuIdx: 0, weight: 100 }
   ]);
+  const [menuWarteg, setMenuWarteg] = useState<any[]>([]);
+
+  useEffect(() => {
+    fetch("/api/menu")
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && data.data.length > 0) {
+          setMenuWarteg(data.data);
+        }
+      });
+  }, []);
 
   const addCalculatorItem = () => {
     setCalculatorItems([...calculatorItems, { menuIdx: 0, weight: 100 }]);
@@ -49,8 +60,10 @@ export default function Home() {
   };
 
   const totalCalories = calculatorItems.reduce((total, item) => {
+    if (menuWarteg.length === 0) return 0;
     const menu = menuWarteg[item.menuIdx];
-    const kaloriPer100g = parseInt(menu.kcal);
+    if (!menu) return total;
+    const kaloriPer100g = parseInt(menu.kalori || menu.kcal || 0);
     return total + (kaloriPer100g * item.weight) / 100;
   }, 0);
 
@@ -173,9 +186,11 @@ export default function Home() {
         <div className="bg-nutriteg-green-light rounded-xl p-8 flex flex-col items-center">
           
           <div className="w-full mb-6 space-y-4">
-            {calculatorItems.map((item, idx) => {
+            {menuWarteg.length > 0 && calculatorItems.map((item, idx) => {
               const selectedMenu = menuWarteg[item.menuIdx];
-              const kaloriPer100g = parseInt(selectedMenu.kcal);
+              if (!selectedMenu) return null;
+              
+              const kaloriPer100g = parseInt(selectedMenu.kalori || selectedMenu.kcal || 0);
               const itemKcal = Math.round((kaloriPer100g * item.weight) / 100);
 
               return (
@@ -188,7 +203,7 @@ export default function Home() {
                       className="w-full border border-gray-200 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-nutriteg-green-dark"
                     >
                       {menuWarteg.map((menu, mIdx) => (
-                        <option key={mIdx} value={mIdx}>{menu.name} ({menu.kcal}/100g)</option>
+                        <option key={mIdx} value={mIdx}>{menu.nama || menu.name} ({menu.kalori || menu.kcal} Kkal/100g)</option>
                       ))}
                     </select>
                   </div>
@@ -210,7 +225,7 @@ export default function Home() {
                   </div>
 
                   <div className="flex gap-4 items-center">
-                    <img src={selectedMenu.img} alt={selectedMenu.name} className="w-12 h-12 rounded-full object-cover shadow-sm" />
+                    <img src={selectedMenu.gambar || selectedMenu.img} alt={selectedMenu.nama || selectedMenu.name} className="w-12 h-12 rounded-full object-cover shadow-sm" />
                     <button 
                       onClick={() => removeCalculatorItem(idx)}
                       disabled={calculatorItems.length === 1}
@@ -222,6 +237,9 @@ export default function Home() {
                 </div>
               );
             })}
+            {menuWarteg.length === 0 && (
+              <div className="text-gray-500 py-8">Memuat menu makanan dari database...</div>
+            )}
           </div>
 
           <div className="flex flex-col md:flex-row justify-between w-full items-center gap-6 border-t border-white/40 pt-6">
