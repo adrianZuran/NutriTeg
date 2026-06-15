@@ -9,7 +9,7 @@ export interface MenuItem {
   karbohidrat: number; // in grams
   deskripsi: string;
   gambar: string;
-  kategori: "Sayur" | "Lauk" | "Karbohidrat" | "Sambal" | "Minuman";
+  kategori: string;
 }
 
 export interface CartItem extends MenuItem {
