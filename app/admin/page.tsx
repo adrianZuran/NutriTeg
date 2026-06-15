@@ -456,7 +456,7 @@ export default function AdminPage() {
                 <div className="space-y-2 md:col-span-2">
                   <label className="text-sm font-bold text-gray-700">Nama Menu</label>
                   <input required type="text" name="nama" value={formData.nama} onChange={handleInputChange} 
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark focus:border-transparent outline-none transition-all shadow-sm" 
+                    className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark focus:border-transparent outline-none transition-all shadow-sm text-black" 
                     placeholder="Contoh: Nasi Putih, Paket Hemat 1..." 
                   />
                 </div>
@@ -464,7 +464,7 @@ export default function AdminPage() {
                 <div className="space-y-2">
                   <label className="text-sm font-bold text-gray-700">Kategori</label>
                   <select name="kategori" value={formData.kategori} onChange={handleInputChange} 
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark focus:border-transparent outline-none transition-all shadow-sm font-medium"
+                    className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark focus:border-transparent outline-none transition-all shadow-sm font-medium text-black"
                   >
                     <option value="Sayur">Sayur</option>
                     <option value="Lauk">Lauk</option>
@@ -480,7 +480,7 @@ export default function AdminPage() {
                   <div className="relative">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 font-bold text-gray-400">Rp</span>
                     <input required type="number" name="harga" value={formData.harga} onChange={handleInputChange} 
-                      className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 pl-12 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all shadow-sm" 
+                      className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 pl-12 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all shadow-sm text-black" 
                     />
                   </div>
                 </div>
@@ -495,25 +495,25 @@ export default function AdminPage() {
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Kalori (Kkal)</label>
                       <input required type="number" name="kalori" value={formData.kalori} onChange={handleInputChange} 
-                        className="w-full bg-gray-50 border border-gray-200 rounded-lg p-3 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all text-center font-bold text-nutriteg-green-dark" 
+                        className="w-full bg-gray-50 border border-gray-200 rounded-lg p-3 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all text-center font-bold text-black" 
                       />
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Protein (g)</label>
                       <input required type="number" name="protein" value={formData.protein} onChange={handleInputChange} 
-                        className="w-full bg-gray-50 border border-gray-200 rounded-lg p-3 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all text-center font-bold text-gray-700" 
+                        className="w-full bg-gray-50 border border-gray-200 rounded-lg p-3 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all text-center font-bold text-black" 
                       />
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Lemak (g)</label>
                       <input required type="number" name="lemak" value={formData.lemak} onChange={handleInputChange} 
-                        className="w-full bg-gray-50 border border-gray-200 rounded-lg p-3 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all text-center font-bold text-gray-700" 
+                        className="w-full bg-gray-50 border border-gray-200 rounded-lg p-3 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all text-center font-bold text-black" 
                       />
                     </div>
                     <div className="space-y-1.5">
                       <label className="text-xs font-bold text-gray-500 uppercase tracking-wider">Karbo (g)</label>
                       <input required type="number" name="karbohidrat" value={formData.karbohidrat} onChange={handleInputChange} 
-                        className="w-full bg-gray-50 border border-gray-200 rounded-lg p-3 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all text-center font-bold text-gray-700" 
+                        className="w-full bg-gray-50 border border-gray-200 rounded-lg p-3 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all text-center font-bold text-black" 
                       />
                     </div>
                   </div>
@@ -550,7 +550,7 @@ export default function AdminPage() {
                             alert("Terjadi kesalahan saat upload");
                           }
                         }}
-                        className="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-nutriteg-green-light/20 file:text-nutriteg-green-dark hover:file:bg-nutriteg-green-light/40" 
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all shadow-sm text-black file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-nutriteg-green-light/20 file:text-nutriteg-green-dark hover:file:bg-nutriteg-green-light/40" 
                       />
                     </div>
                   </div>
@@ -559,7 +559,7 @@ export default function AdminPage() {
                 <div className="space-y-2 md:col-span-2">
                   <label className="text-sm font-bold text-gray-700">Deskripsi</label>
                   <textarea required name="deskripsi" value={formData.deskripsi} onChange={handleInputChange} rows={3} 
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all shadow-sm resize-none" 
+                    className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all shadow-sm resize-none text-black" 
                     placeholder="Jelaskan detail menu ini..."
                   ></textarea>
                 </div>

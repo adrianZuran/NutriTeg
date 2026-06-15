@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { cookies } from "next/headers";
 import db from "@/lib/db";
 
-export async function PUT(request: Request, { params }: { params: { id: string } }) {
+export async function PUT(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get('admin_token');
@@ -10,7 +10,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
       return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
     }
 
-    const id = params.id;
+    const { id } = await params;
     const body = await request.json();
     const { nama, harga, kalori, gula, protein, lemak, karbohidrat, deskripsi, gambar, kategori } = body;
     
@@ -30,7 +30,7 @@ export async function PUT(request: Request, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(request: Request, { params }: { params: { id: string } }) {
+export async function DELETE(request: Request, { params }: { params: Promise<{ id: string }> }) {
   try {
     const cookieStore = await cookies();
     const token = cookieStore.get('admin_token');
@@ -38,7 +38,7 @@ export async function DELETE(request: Request, { params }: { params: { id: strin
       return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 });
     }
 
-    const id = params.id;
+    const { id } = await params;
 
     const [result]: any = await db.execute("DELETE FROM menus WHERE id=?", [id]);
     
