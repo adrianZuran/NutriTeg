@@ -506,11 +506,40 @@ export default function AdminPage() {
                 </div>
 
                 <div className="space-y-2 md:col-span-2">
-                  <label className="text-sm font-bold text-gray-700">URL Gambar</label>
-                  <input required type="url" name="gambar" value={formData.gambar} onChange={handleInputChange} 
-                    className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all shadow-sm" 
-                    placeholder="https://images.unsplash.com/..." 
-                  />
+                  <label className="text-sm font-bold text-gray-700">Gambar Menu</label>
+                  <div className="flex items-center gap-4">
+                    {formData.gambar && (
+                      <div className="w-16 h-16 rounded-xl overflow-hidden shrink-0 border border-gray-200">
+                        <img src={formData.gambar} alt="Preview" className="w-full h-full object-cover" />
+                      </div>
+                    )}
+                    <div className="flex-1">
+                      <input 
+                        type="file" 
+                        accept="image/*"
+                        onChange={async (e) => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+                          
+                          const formDataData = new FormData();
+                          formDataData.append('file', file);
+                          
+                          try {
+                            const res = await fetch('/api/upload', { method: 'POST', body: formDataData });
+                            const data = await res.json();
+                            if (data.success) {
+                              setFormData(prev => ({ ...prev, gambar: data.url }));
+                            } else {
+                              alert("Gagal upload gambar");
+                            }
+                          } catch (err) {
+                            alert("Terjadi kesalahan saat upload");
+                          }
+                        }}
+                        className="w-full bg-gray-50 border border-gray-200 rounded-xl p-2.5 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all shadow-sm file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-nutriteg-green-light/20 file:text-nutriteg-green-dark hover:file:bg-nutriteg-green-light/40" 
+                      />
+                    </div>
+                  </div>
                 </div>
                 
                 <div className="space-y-2 md:col-span-2">
