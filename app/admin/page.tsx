@@ -10,6 +10,7 @@ export default function AdminPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
   const [activeTab, setActiveTab] = useState<"Semua" | "Biasa" | "Paket">("Semua");
+  const [searchQuery, setSearchQuery] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -197,7 +198,7 @@ export default function AdminPage() {
                 type="text" 
                 value={loginForm.username}
                 onChange={(e) => setLoginForm({ ...loginForm, username: e.target.value })}
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all" 
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all text-black" 
                 required 
                 placeholder="Masukkan username admin"
               />
@@ -208,7 +209,7 @@ export default function AdminPage() {
                 type="password" 
                 value={loginForm.password}
                 onChange={(e) => setLoginForm({ ...loginForm, password: e.target.value })}
-                className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all" 
+                className="w-full bg-gray-50 border border-gray-200 rounded-xl p-3.5 focus:bg-white focus:ring-2 focus:ring-nutriteg-green-dark outline-none transition-all text-black" 
                 required 
                 placeholder="••••••••"
               />
@@ -225,11 +226,18 @@ export default function AdminPage() {
     );
   }
 
-  const filteredMenus = activeTab === "Semua" 
-    ? menus 
-    : activeTab === "Paket" 
-      ? menus.filter(m => m.kategori === "Paket")
-      : menus.filter(m => m.kategori !== "Paket");
+  const filteredMenus = menus.filter(m => {
+    const matchesTab = activeTab === "Semua" 
+      ? true 
+      : activeTab === "Paket" 
+        ? m.kategori === "Paket"
+        : m.kategori !== "Paket";
+        
+    const matchesSearch = m.nama.toLowerCase().includes(searchQuery.toLowerCase()) || 
+                          (m.deskripsi && m.deskripsi.toLowerCase().includes(searchQuery.toLowerCase()));
+                          
+    return matchesTab && matchesSearch;
+  });
 
   return (
     <div className="fixed inset-0 z-50 flex bg-gray-50 overflow-hidden font-sans">
@@ -298,7 +306,13 @@ export default function AdminPage() {
           <div className="flex items-center gap-6">
             <div className="hidden md:flex items-center bg-gray-50 rounded-full px-4 py-2.5 border border-gray-200 w-64">
               <Search className="w-4 h-4 text-gray-400 mr-2" />
-              <input type="text" placeholder="Cari menu..." className="bg-transparent border-none outline-none text-sm w-full" />
+              <input 
+                type="text" 
+                placeholder="Cari menu..." 
+                className="bg-transparent border-none outline-none text-sm w-full text-black"
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+              />
             </div>
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-nutriteg-green-light flex items-center justify-center text-nutriteg-green-dark font-bold border-2 border-white shadow-sm">

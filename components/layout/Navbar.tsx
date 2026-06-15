@@ -31,9 +31,8 @@ export default function Navbar() {
     { name: "Beranda", path: "/" },
     { name: "Menu", path: "/#menu" },
     { name: "Kalkulator", path: "/#kalkulator" },
-    { name: "Tentang", path: "/tentang" },
+    { name: "Tentang", path: "/#tentang" },
   ];
-
   return (
     <nav className={cn(
       "fixed w-full z-50 transition-all duration-300",

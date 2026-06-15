@@ -95,6 +95,33 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Tentang Kami */}
+      <section id="tentang" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 lg:py-28">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
+          {/* Image Collage */}
+          <div className="grid grid-cols-2 gap-4">
+            <div className="flex flex-col gap-4">
+              <img src="/uploads/tempe.png" alt="Bungkus daun" className="w-full h-48 md:h-56 object-cover rounded-[2rem] shadow-sm" />
+              <img src="/uploads/tempeberdiri.png" alt="Tempe goreng" className="w-full h-64 md:h-80 object-cover rounded-[2rem] shadow-sm" />
+            </div>
+            <div className="flex flex-col gap-4 pt-8 md:pt-12">
+              <img src="https://images.unsplash.com/photo-1604503468506-a8da13d82791?w=600&q=80" alt="Dada ayam" className="w-full h-64 md:h-80 object-cover rounded-[2rem] shadow-sm" />
+              <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=600&q=80" alt="Steak sehat" className="w-full h-48 md:h-56 object-cover rounded-[2rem] shadow-sm" />
+            </div>
+          </div>
+
+          {/* Text Content */}
+          <div className="lg:pl-8">
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-nutriteg-green-dark mb-6 leading-[1.1] tracking-tight">
+              Kenapa Memilih<br/>NutriTeg?
+            </h2>
+            <p className="text-gray-700 text-base md:text-lg leading-relaxed text-justify sm:text-left">
+              NutriTeg lahir dari sebuah misi sederhana, yaitu menjadikan gaya hidup sehat mudah diakses oleh siapa saja, tanpa harus menguras dompet atau mengorbankan selera lidah lokal. Kami meredefinisi pengalaman makan di warteg menjadi lebih baik dengan tiga pilar utama, cita rasa nusantara asli, tinggi protein, rendah lemak jahat, serta harga ramah kantong.
+            </p>
+          </div>
+        </div>
+      </section>
+
       {/* Banner */}
       <section className="w-full bg-nutriteg-green-dark py-20 relative overflow-hidden flex items-center justify-center min-h-[300px]">
         <div className="absolute inset-0 opacity-10 bg-[url('https://images.unsplash.com/photo-1542838132-92c53300491e?w=1600&q=80')] bg-cover bg-center"></div>
